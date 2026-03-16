@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "871346812255",
+    "project_id": "king-baber",
+    "storage_bucket": "king-baber.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871346812255:android:acd352434eb3258828f2ea",
+        "android_client_info": {
+          "package_name": "com.littleprojext.king_barber"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKLgt1NVJhPDcaYzKGrQZAu_IUMUFxD6o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:king_barber/app/core/theme/text_theme.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:king_barber/app/core/widgets/build_another_button_login.dart';
 import 'package:king_barber/app/core/widgets/build_universal_field.dart';
 import 'package:king_barber/app/core/widgets/build_large_button.dart';
 import 'package:king_barber/app/core/widgets/build_password_field.dart';
 import 'package:king_barber/app/core/widgets/build_text_button.dart';
 import 'package:king_barber/app/core/widgets/input_label.dart';
-import 'package:king_barber/app/routes/app_pages.dart';
-import '../controllers/sign_in_controller.dart';
 
-class SignInView extends GetView<SignInController> {
-  const SignInView({super.key});
+import '../controllers/sign_up_controller.dart';
+
+class SignUpView extends GetView<SignUpController> {
+  const SignUpView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,11 +25,7 @@ class SignInView extends GetView<SignInController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 32),
-                Text('LOGIN', style: AppTextStyle.heading1),
-                Text(
-                  'Masukkan silahkan login untuk dapat menggunakan aplikasi',
-                  style: AppTextStyle.body,
-                ),
+                Text('REGISTER', style: AppTextStyle.heading1),
                 const SizedBox(height: 32),
                 inputLabelField('Email'),
                 buildUniversalField(
@@ -50,12 +46,39 @@ class SignInView extends GetView<SignInController> {
                     controller: controller.password,
                   ),
                 ),
-                buildTextButton('Lupa Password?', () {}),
-                buildLargeButton('LOGIN', () {}),
+                const SizedBox(height: 12),
+                inputLabelField('Konfirmasi Password'),
+                Obx(
+                  () => buildPasswordField(
+                    hintText: 'Masukkan ulang password',
+                    isObs: controller.isRepeatPasswordObs.value,
+                    eyeTap: () => controller.isRepeatPasswordObs.toggle(),
+                    icon: controller.isRepeatPasswordObs.value
+                        ? FontAwesomeIcons.solidEye
+                        : FontAwesomeIcons.eye,
+                    controller: controller.repeatPassword,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                inputLabelField('Nama Pengguna'),
+                buildUniversalField(
+                  hintText: 'Masukkan nama pengguna',
+                  textInputType: TextInputType.name,
+                  controller: controller.userName,
+                ),
+                const SizedBox(height: 12),
+                inputLabelField('Telepon'),
+                buildUniversalField(
+                  hintText: 'Masukkan nomor telepon',
+                  textInputType: TextInputType.phone,
+                  controller: controller.phone,
+                ),
+                const SizedBox(height: 24),
+                buildLargeButton('REGISTER', () {}),
                 const SizedBox(height: 24),
                 Align(
                   alignment: Alignment.center,
-                  child: Text('atau login dengan', style: AppTextStyle.body),
+                  child: Text('atau register dengan', style: AppTextStyle.body),
                 ),
                 const SizedBox(height: 24),
                 Row(
@@ -72,11 +95,8 @@ class SignInView extends GetView<SignInController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('belum memiliki akun?', style: AppTextStyle.body),
-                      buildTextButton(
-                        'Register',
-                        () => Get.toNamed(Routes.SIGN_UP),
-                      ),
+                      Text('sudah memiliki akun?', style: AppTextStyle.body),
+                      buildTextButton('Login', () => Get.back()),
                     ],
                   ),
                 ),

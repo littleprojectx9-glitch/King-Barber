@@ -7,7 +7,7 @@ class UserModel extends User {
     required super.userName,
     required super.email,
     required super.phone,
-    required super.imageUrl,
+    required super.photoUrl,
   });
 
   factory UserModel.fromFirebase(fb.User user) {
@@ -16,7 +16,7 @@ class UserModel extends User {
       userName: user.displayName ?? '',
       email: user.email ?? '',
       phone: user.phoneNumber ?? '',
-      imageUrl: user.photoURL ?? '',
+      photoUrl: user.photoURL ?? '',
     );
   }
 }

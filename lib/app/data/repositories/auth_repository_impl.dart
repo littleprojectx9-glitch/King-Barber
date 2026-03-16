@@ -1,15 +1,18 @@
-import 'package:king_barber/app/data/datasources/auth_remote_datasource.dart';
-import 'package:king_barber/app/data/entities/user.dart';
-import 'package:king_barber/app/domain/repositories/auth_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fb;
+
+import '../../domain/repositories/auth_repository.dart';
+
+import '../datasources/auth_remote_datasource.dart';
+import '../entities/user.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final AuthRemoteDatasource authRemoteDatasource;
+  final AuthRemoteDatasource remote;
 
-  AuthRepositoryImpl(this.authRemoteDatasource);
+  AuthRepositoryImpl(this.remote);
 
   @override
   Future<User> signIn(String email, String password) {
-    return authRemoteDatasource.signIn(email, password);
+    return remote.signIn(email, password);
   }
 
   @override
@@ -18,19 +21,23 @@ class AuthRepositoryImpl implements AuthRepository {
     String password,
     String userName,
     String phone,
-    String imageUrl,
+    String photoUrl,
   ) {
-    return authRemoteDatasource.signUp(
-      email,
-      password,
-      userName,
-      phone,
-      imageUrl,
-    );
+    return remote.signUp(email, password, userName, phone, photoUrl);
   }
 
   @override
-  Future<void> resetpassword(String email) {
-    return authRemoteDatasource.resetPassword(email);
+  Future<void> resetPassword(String email) {
+    return remote.resetPassword(email);
+  }
+
+  @override
+  Future<void> logOut() {
+    return remote.logout();
+  }
+
+  @override
+  Stream<fb.User?> get authStream {
+    return remote.authStream();
   }
 }

@@ -1,17 +1,17 @@
 import 'package:king_barber/app/data/entities/user.dart';
 import 'package:king_barber/app/domain/repositories/auth_repository.dart';
 
-class SignUp {
+class SignUpUsecase {
   final AuthRepository repository;
-  SignUp(this.repository);
+  SignUpUsecase(this.repository);
 
   Future<User> call(
     String email,
     String password,
     String userName,
     String phone,
-    String imageUrl,
+    String photoUrl,
   ) {
-    return repository.signUp(email, password, userName, phone, imageUrl);
+    return repository.signUp(email, password, userName, phone, photoUrl);
   }
 }

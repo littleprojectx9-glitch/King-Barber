@@ -1,4 +1,5 @@
 import 'package:king_barber/app/data/entities/user.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fb;
 
 abstract class AuthRepository {
   Future<User> signIn(String email, String password);
@@ -7,7 +8,10 @@ abstract class AuthRepository {
     String password,
     String userName,
     String phone,
-    String imageUrl,
+    String photoUrl,
   );
-  Future<void> resetpassword(String email);
+  Future<void> resetPassword(String email);
+  Future<void> logOut();
+
+  Stream<fb.User?> get authStream;
 }
