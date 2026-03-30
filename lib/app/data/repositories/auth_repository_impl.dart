@@ -1,9 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart' as fb;
-
-import '../../domain/repositories/auth_repository.dart';
-
-import '../datasources/auth_remote_datasource.dart';
-import '../entities/user.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fa;
+import 'package:king_barber/app/data/datasources/auth_remote_datasource.dart';
+import 'package:king_barber/app/data/entities/user.dart';
+import 'package:king_barber/app/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDatasource remote;
@@ -11,12 +9,12 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this.remote);
 
   @override
-  Future<User> signIn(String email, String password) {
+  Future<User?> signIn(String email, String password) {
     return remote.signIn(email, password);
   }
 
   @override
-  Future<User> signUp(
+  Future<User?> signUp(
     String email,
     String password,
     String userName,
@@ -37,7 +35,12 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Stream<fb.User?> get authStream {
-    return remote.authStream();
+  Stream<fa.User?> getStream() {
+    return remote.getStream();
+  }
+
+  @override
+  Future<User?> signInwithGoogle() {
+    return remote.signInwithGoogle();
   }
 }

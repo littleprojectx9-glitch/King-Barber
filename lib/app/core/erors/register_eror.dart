@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:king_barber/app/core/utils/helper.dart';
+import 'package:king_barber/app/core/utils/snacbar_helper.dart';
 
 class RegisterEror {
   void handleRegisterError(FirebaseAuthException e) {

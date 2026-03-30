@@ -7,6 +7,7 @@ class AppTextStyle {
     fontSize: 24,
     fontWeight: FontWeight.bold,
     color: AppColors.textPrimary,
+    height: 1.2,
   );
 
   static TextStyle heading2 = GoogleFonts.poppins(
@@ -15,14 +16,39 @@ class AppTextStyle {
     color: AppColors.textPrimary,
   );
 
+  static TextStyle inversHeading2 = GoogleFonts.poppins(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: AppColors.surface,
+  );
+
+  static TextStyle inversHeading1 = GoogleFonts.poppins(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: AppColors.background,
+  );
+
   static TextStyle heading3 = GoogleFonts.poppins(
-    fontSize: 13,
-    color: AppColors.textSecondary,
+    fontSize: 15,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary,
   );
 
   static TextStyle body = GoogleFonts.poppins(
     fontSize: 12,
     color: AppColors.textSecondary,
+  );
+
+  static TextStyle boldBody = GoogleFonts.poppins(
+    fontSize: 12,
+    height: 1,
+    fontWeight: FontWeight.bold,
+    color: AppColors.textSecondary,
+  );
+
+  static TextStyle inversBody = GoogleFonts.poppins(
+    fontSize: 12,
+    color: AppColors.background,
   );
 
   static TextStyle button = GoogleFonts.poppins(
@@ -34,7 +60,12 @@ class AppTextStyle {
   static TextStyle button2 = GoogleFonts.poppins(
     fontSize: 16,
     fontWeight: FontWeight.bold,
-    color: AppColors.primary,
+    color: AppColors.textPrimary,
+  );
+
+  static TextStyle button3 = GoogleFonts.poppins(
+    fontSize: 12,
+    color: Colors.white,
   );
 
   static TextStyle hintText = GoogleFonts.poppins(
@@ -47,9 +78,50 @@ class AppTextStyle {
     color: AppColors.textPrimary,
   );
 
+  static TextStyle inversTextPrimary = GoogleFonts.poppins(
+    fontSize: 12,
+    color: AppColors.surface,
+  );
+
   static TextStyle textButton = GoogleFonts.poppins(
+    fontSize: 13,
+    fontWeight: FontWeight.w400,
+    color: AppColors.primary,
+  );
+
+  static TextStyle titleSnacbar = GoogleFonts.poppins(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    color: AppColors.textPrimary,
+  );
+  static TextStyle messageSnacbar = GoogleFonts.poppins(
+    fontSize: 12,
+    color: AppColors.textPrimary,
+  );
+
+  static TextStyle disBottomNavBar = GoogleFonts.poppins(
+    fontSize: 10,
+    color: AppColors.textSecondary,
+  );
+  static TextStyle enabBottomNavBar = GoogleFonts.poppins(
+    fontSize: 10,
+    fontWeight: FontWeight.bold,
+    color: AppColors.textPrimary,
+  );
+  static TextStyle supportText = GoogleFonts.poppins(
+    fontSize: 10,
+    color: AppColors.textSecondary,
+  );
+
+  static TextStyle openText = GoogleFonts.poppins(
     fontSize: 12,
     fontWeight: FontWeight.bold,
-    color: AppColors.primary,
+    color: AppColors.success,
+  );
+
+  static TextStyle closeText = GoogleFonts.poppins(
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
+    color: AppColors.error,
   );
 }

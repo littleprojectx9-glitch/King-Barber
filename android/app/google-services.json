@@ -12,7 +12,20 @@
           "package_name": "com.littleprojext.king_barber"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "871346812255-1g60a76e31jrs0ot96l1aetj4eljm2v5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.littleprojext.king_barber",
+            "certificate_hash": "c7cb5f676872c599c33dcc712c2e1b16e6568669"
+          }
+        },
+        {
+          "client_id": "871346812255-bo8u2utna6cftoq570ovjilgm2hi4uur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDKLgt1NVJhPDcaYzKGrQZAu_IUMUFxD6o"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "871346812255-bo8u2utna6cftoq570ovjilgm2hi4uur.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

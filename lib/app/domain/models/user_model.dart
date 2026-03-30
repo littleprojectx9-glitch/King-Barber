@@ -1,20 +1,20 @@
 import 'package:king_barber/app/data/entities/user.dart';
-import 'package:firebase_auth/firebase_auth.dart' as fb;
+import 'package:firebase_auth/firebase_auth.dart' as fa;
 
 class UserModel extends User {
   UserModel({
     required super.uId,
-    required super.userName,
     required super.email,
+    required super.userName,
     required super.phone,
     required super.photoUrl,
   });
 
-  factory UserModel.fromFirebase(fb.User user) {
+  factory UserModel.fromFirebase(fa.User user) {
     return UserModel(
       uId: user.uid,
-      userName: user.displayName ?? '',
       email: user.email ?? '',
+      userName: user.displayName ?? '',
       phone: user.phoneNumber ?? '',
       photoUrl: user.photoURL ?? '',
     );

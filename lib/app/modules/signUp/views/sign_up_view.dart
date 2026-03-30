@@ -3,11 +3,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:king_barber/app/core/theme/text_theme.dart';
-import 'package:king_barber/app/core/widgets/build_another_button_login.dart';
-import 'package:king_barber/app/core/widgets/build_universal_field.dart';
-import 'package:king_barber/app/core/widgets/build_large_button.dart';
-import 'package:king_barber/app/core/widgets/build_password_field.dart';
-import 'package:king_barber/app/core/widgets/build_text_button.dart';
+import 'package:king_barber/app/core/widgets/textfields/build_universal_field.dart';
+import 'package:king_barber/app/core/widgets/buttons/build_auth_button.dart';
+import 'package:king_barber/app/core/widgets/textfields/build_password_field.dart';
+import 'package:king_barber/app/core/widgets/buttons/build_text_button.dart';
 import 'package:king_barber/app/core/widgets/input_label.dart';
 
 import '../controllers/sign_up_controller.dart';
@@ -74,20 +73,28 @@ class SignUpView extends GetView<SignUpController> {
                   controller: controller.phone,
                 ),
                 const SizedBox(height: 24),
-                buildLargeButton('REGISTER', () {}),
-                const SizedBox(height: 24),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text('atau register dengan', style: AppTextStyle.body),
-                ),
-                const SizedBox(height: 24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    buildAnotherButtonLogin(() {}, 'assets/icons/google.png'),
-                    const SizedBox(width: 12),
-                    buildAnotherButtonLogin(() {}, 'assets/icons/facebook.png'),
-                  ],
+                Obx(
+                  () => buildAuthButton(
+                    controller.isLoading.value
+                        ? Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
+                          )
+                        : Text('REGISTER', style: AppTextStyle.button),
+                    () {
+                      controller.isLoading.value
+                          ? null
+                          : controller.callSignUp(
+                              controller.email.text,
+                              controller.password.text,
+                              controller.repeatPassword.text,
+                              controller.userName.text,
+                              controller.phone.text,
+                            );
+                    },
+                  ),
                 ),
                 const SizedBox(height: 12),
                 Align(

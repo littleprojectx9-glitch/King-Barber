@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:king_barber/app/core/theme/text_theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:king_barber/app/core/widgets/build_another_button_login.dart';
-import 'package:king_barber/app/core/widgets/build_universal_field.dart';
-import 'package:king_barber/app/core/widgets/build_large_button.dart';
-import 'package:king_barber/app/core/widgets/build_password_field.dart';
-import 'package:king_barber/app/core/widgets/build_text_button.dart';
+import 'package:king_barber/app/core/widgets/buttons/build_another_button_login.dart';
+import 'package:king_barber/app/core/widgets/textfields/build_universal_field.dart';
+import 'package:king_barber/app/core/widgets/buttons/build_auth_button.dart';
+import 'package:king_barber/app/core/widgets/textfields/build_password_field.dart';
+import 'package:king_barber/app/core/widgets/buttons/build_text_button.dart';
 import 'package:king_barber/app/core/widgets/input_label.dart';
 import 'package:king_barber/app/routes/app_pages.dart';
 import '../controllers/sign_in_controller.dart';
@@ -51,7 +51,26 @@ class SignInView extends GetView<SignInController> {
                   ),
                 ),
                 buildTextButton('Lupa Password?', () {}),
-                buildLargeButton('LOGIN', () {}),
+                Obx(
+                  () => buildAuthButton(
+                    controller.isLoading.value
+                        ? Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
+                          )
+                        : Text('LOGIN', style: AppTextStyle.button),
+                    () {
+                      controller.isLoading.value
+                          ? null
+                          : controller.callSignIn(
+                              controller.email.text,
+                              controller.password.text,
+                            );
+                    },
+                  ),
+                ),
                 const SizedBox(height: 24),
                 Align(
                   alignment: Alignment.center,
@@ -61,9 +80,11 @@ class SignInView extends GetView<SignInController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    buildAnotherButtonLogin(() {}, 'assets/icons/google.png'),
+                    buildAnotherButtonLogin(
+                      () => controller.callSignInwithGoogle(),
+                      'assets/icons/google.png',
+                    ),
                     const SizedBox(width: 12),
-                    buildAnotherButtonLogin(() {}, 'assets/icons/facebook.png'),
                   ],
                 ),
                 const SizedBox(height: 12),

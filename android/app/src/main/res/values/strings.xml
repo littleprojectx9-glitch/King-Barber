@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">king_barber</string>
+
+    <string name="facebook_app_id">1:871346812255:android:acd352434eb3258828f2ea</string>
+    <string name="fb_login_protocol_scheme">fb1:871346812255:android:acd352434eb3258828f2ea</string>
+</resources>

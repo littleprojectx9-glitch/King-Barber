@@ -1,20 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:king_barber/app/core/utils/helper.dart';
+import 'package:king_barber/app/core/utils/snacbar_helper.dart';
 
 class LoginEror {
   void handleLoginError(FirebaseAuthException e) {
     switch (e.code) {
       case "user-not-found":
-        SnackBarHelper.cautionSnacbar("Email is not registered");
+        SnackBarHelper.cautionSnacbar("Email belum di verifikasi");
         break;
       case "wrong-password":
-        SnackBarHelper.cautionSnacbar("Incorrect password");
+        SnackBarHelper.cautionSnacbar("Password salah");
         break;
       case "invalid-email":
-        SnackBarHelper.cautionSnacbar("Invalid email format");
+        SnackBarHelper.cautionSnacbar("Format email salah");
         break;
       case "user-disabled":
-        SnackBarHelper.cautionSnacbar("Account disabled");
+        SnackBarHelper.cautionSnacbar("Akun telah dinonaktifkan");
+        break;
+      case 'invalid-credential':
+        SnackBarHelper.cautionSnacbar('Email atau password salah');
         break;
       default:
         SnackBarHelper.cautionSnacbar("Login failed");

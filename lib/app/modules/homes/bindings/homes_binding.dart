@@ -1,0 +1,22 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
+import 'package:king_barber/app/data/datasources/auth_remote_datasource.dart';
+import 'package:king_barber/app/data/datasources/auth_remote_datasource_impl.dart';
+import 'package:king_barber/app/data/repositories/auth_repository_impl.dart';
+import 'package:king_barber/app/domain/repositories/auth_repository.dart';
+import 'package:king_barber/app/domain/usercases/logout.dart';
+
+import '../controllers/homes_controller.dart';
+
+class HomesBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut(() => FirebaseAuth.instance);
+    Get.lazyPut(() => LogoutUsecase(Get.find()));
+    Get.lazyPut<AuthRepository>(() => AuthRepositoryImpl(Get.find()));
+    Get.lazyPut<AuthRemoteDatasource>(
+      () => AuthRemoteDatasourceImpl(Get.find(), Get.find()),
+    );
+    Get.lazyPut<HomesController>(() => HomesController(Get.find()));
+  }
+}

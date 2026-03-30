@@ -1,47 +1,47 @@
-import 'package:firebase_auth/firebase_auth.dart' as fb;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:king_barber/app/data/datasources/auth_remote_datasource.dart';
-import '../../core/erors/login_eror.dart';
-import '../../core/erors/register_eror.dart';
-import '../../core/utils/helper.dart';
-import '../../domain/models/user_model.dart';
+import 'package:king_barber/app/domain/models/user_model.dart';
 
 class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
-  @override
-  final fb.FirebaseAuth auth;
-  @override
+  final FirebaseAuth auth;
   final FirebaseFirestore firestore;
 
   AuthRemoteDatasourceImpl(this.auth, this.firestore);
 
   @override
-  Future<UserModel> signIn(String email, String password) async {
+  Future<UserModel?> signIn(String email, String password) async {
     try {
       final credential = await auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      final user = credential.user;
+      var user = credential.user;
 
       if (user == null) {
-        throw Exception('User tidak ditemukan');
+        throw Exception('Akun tidak ditemukan');
       }
 
-      return UserModel.fromFirebase(user);
-    } on fb.FirebaseAuthException catch (e) {
-      LoginEror().handleLoginError(e);
+      await user.reload();
+      user = auth.currentUser;
+
+      if (user != null && !user.emailVerified) {
+        await auth.signOut();
+        throw Exception('Email belum di verifikasi');
+      }
+
+      return UserModel.fromFirebase(user!);
+    } on FirebaseAuthException catch (_) {
       rethrow;
     } catch (_) {
-      SnackBarHelper.cautionSnacbar(
-        "Terjadi kesalahan, silahkan coba beberapa saat lagi",
-      );
       rethrow;
     }
   }
 
   @override
-  Future<UserModel> signUp(
+  Future<UserModel?> signUp(
     String email,
     String password,
     String userName,
@@ -57,25 +57,23 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       final user = credential.user;
 
       if (user == null) {
-        throw Exception('Gagal membuat akun');
+        throw Exception('Registrasi gagal');
       }
 
-      await firestore.collection('user').doc(user.uid).set({
+      await user.sendEmailVerification();
+      await firestore.collection('users').doc(user.uid).set({
         'uId': user.uid,
-        'userName': userName,
         'email': email,
+        'userName': userName,
         'phone': phone,
         'photoUrl': photoUrl,
       });
+      await auth.signOut();
 
-      return UserModel.fromFirebase(user);
-    } on fb.FirebaseAuthException catch (e) {
-      RegisterEror().handleRegisterError(e);
+      return null;
+    } on FirebaseAuthException catch (_) {
       rethrow;
     } catch (_) {
-      SnackBarHelper.cautionSnacbar(
-        "Terjadi kesalahan, silahkan coba beberapa saat lagi",
-      );
       rethrow;
     }
   }
@@ -91,7 +89,42 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   }
 
   @override
-  Stream<fb.User?> authStream() {
+  Stream<User?> getStream() {
     return auth.authStateChanges();
+  }
+
+  @override
+  Future<UserModel?> signInwithGoogle() async {
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn.instance;
+
+      await googleSignIn.initialize(
+        serverClientId:
+            "871346812255-bo8u2utna6cftoq570ovjilgm2hi4uur.apps.googleusercontent.com",
+      );
+
+      final GoogleSignInAccount googleUser = await googleSignIn.authenticate();
+
+      final GoogleSignInAuthentication googleAuth = googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+      );
+
+      final userCredential = await FirebaseAuth.instance.signInWithCredential(
+        credential,
+      );
+
+      final user = userCredential.user;
+
+      if (user == null) return null;
+
+      return UserModel.fromFirebase(user);
+    } on GoogleSignInException catch (e) {
+      if (e.code == GoogleSignInExceptionCode.canceled) {
+        return null;
+      }
+      rethrow;
+    }
   }
 }
