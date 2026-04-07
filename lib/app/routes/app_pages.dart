@@ -16,6 +16,8 @@ import '../modules/homes/bindings/homes_binding.dart';
 import '../modules/homes/views/homes_view.dart';
 import '../modules/main/bindings/main_binding.dart';
 import '../modules/main/views/main_view.dart';
+import '../modules/profile/bindings/profile_binding.dart';
+import '../modules/profile/views/profile_view.dart';
 import '../modules/see_all/bindings/see_all_binding.dart';
 import '../modules/see_all/views/see_all_view.dart';
 import '../modules/signIn/bindings/sign_in_binding.dart';
@@ -85,6 +87,11 @@ class AppPages {
       name: _Paths.ALBUM,
       page: () => const AlbumView(),
       binding: AlbumBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE,
+      page: () => const ProfileView(),
+      binding: ProfileBinding(),
     ),
   ];
 }

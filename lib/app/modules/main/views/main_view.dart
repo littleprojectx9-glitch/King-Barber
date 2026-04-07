@@ -8,6 +8,7 @@ import 'package:king_barber/app/modules/album/views/album_view.dart';
 import 'package:king_barber/app/modules/all_chat/views/all_chat_view.dart';
 import 'package:king_barber/app/modules/homes/views/homes_view.dart';
 import 'package:king_barber/app/modules/main/views/widgets/icon_nav_bar.dart';
+import 'package:king_barber/app/modules/profile/views/profile_view.dart';
 
 import '../controllers/main_controller.dart';
 
@@ -23,7 +24,7 @@ class _MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     final MainController controller = Get.find();
 
-    final pages = [HomesView(), AllChatView(), AlbumView(), Text('Page 4')];
+    final pages = [HomesView(), AllChatView(), AlbumView(), ProfileView()];
     return Scaffold(
       body: Obx(
         () => IndexedStack(
